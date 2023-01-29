@@ -172,58 +172,54 @@ int main()
     //Test search() method
     DNA_Strand dna8("\\\\\\");
     bool failed = false;
-    int failTrack = 0;
     for (size_t x = 0; x < dna8.size() && !failed; ++x) {
         if (dna8.search("\\") != 0) {
             std::cout << "Test 18 FAIL. Index of first occurrence of \"\\\" should"
                          " be 0." << std::endl;
-            ++failTrack;
+            failed = true;
         }
         dna8.set('/', x);
         if (dna8.search("/") != (int) x) {
             std::cout << "Test 19 FAIL. Strand \"/\" should be at index " << x
                       << " but is instead at index " << dna8.search("/") << "."
                       << std::endl;
-            ++failTrack;
+            failed = true;
         }
         if (dna8.get(x) != '/') {
             std::cout << "Test 20 FAIL. Character returned at index " << x
                       << " should be '/' but is instead " << dna8.get(x) << "."
                       << std::endl;
-            ++failTrack;
-        }
-        if (failTrack != 0) {
             failed = true;
         }
         dna8.set('\\', x);
     }
 
+    //Stress test calling get() and set() 10000 times
     DNA_Strand dna9("AAAAAAA");
-    bool failed2 = false;
-    int failTrack2 = 0;
-    for (size_t x = 0; x < dna9.size() && !failed2; ++x) {
-        if (dna9.search("A") != 0) {
+    failed = false;
+    int result;
+    for (size_t x = 0; x < 10000 && !failed; ++x) {
+        auto mod = x % dna9.size();
+        result = dna9.search("A");
+        if (result != 0) {
             std::cout << "Test 21 FAIL. Index of first occurrence of \"A\" should"
                          " be 0." << std::endl;
-            ++failTrack2;
+            failed = true;
         }
-        dna9.set('H', x);
-        if (dna9.search("H") != (int) x) {
+        dna9.set('H', mod);
+        if ((result = dna9.search("H")) != (int)mod) {
             std::cout << "Test 22 FAIL. Strand \"H\" should be at index " << x
-                      << " but is instead at index " << dna9.search("H") << "."
+                      << " but is instead at index " << result << "."
                       << std::endl;
-            ++failTrack2;
+            failed = true;
         }
-        if (dna9.get(x) != 'H') {
+        if ((result = dna9.get(mod)) != 'H') {
             std::cout << "Test 23 FAIL. Character returned at index " << x
-                      << " should be 'H' but is instead " << dna9.get(x) << "."
+                      << " should be 'H' but is instead " << (char)result << "."
                       << std::endl;
-            ++failTrack2;
+            failed = true;
         }
-        if (failTrack2 != 0) {
-            failed2 = true;
-        }
-        dna9.set('A', x);
+        dna9.set('A', mod);
     }
     if (dna9.search("O") != -1) {
         std::cout << "Test 24 FAIL. Expected -1 but received: "
@@ -272,12 +268,12 @@ int main()
     }
     //Test to detect second occurrence at all indices where it should be
     //detectable
-    bool failed3 = false;
-    for (size_t x = 1; x < 6 && !failed3; ++x) {
+    failed = false;
+    for (size_t x = 1; x < 6 && !failed; ++x) {
         if (dna11.search(x, "ABCDE") != 5) {
             std::cout << "Test 28 FAIL. Expected 5 but received: "
                       << dna11.search(x, "ABCDE") << std::endl;
-            failed3 = true;
+            failed = true;
         }
     }
     //Test to see that search() will not detect occurrence if occurrence begins
@@ -356,41 +352,33 @@ int main()
     //Testing of cleave() method with specified start position
     std::string ipStr8 = "A@T!4AT!4GGT*";
     //Test with all positions where cleave() should return 5
-    bool failed4 = false;
-    int failTrack3 = 0;
-    for (size_t x = 0; x < 3 && !failed4; ++x) {
+    failed = false;
+    for (size_t x = 0; x < 3 && !failed; ++x) {
         DNA_Strand dna19(ipStr8);
         if (dna19.cleave(x, "T!4") != 5) {
             std::cout << "Test 39 FAIL. Expected 5 but received: "
                       << dna19.cleave(x, "T!4") << std::endl;
-            ++failTrack3;
+            failed = true;
         }
         if (dna19.toString() != "A@T!4GGT*") {
             std::cout << "Test 40 FAIL. Expected: A@T!4GGT* but "
                          "received: " << dna19.toString() << std::endl;
-            ++failTrack3;
-        }
-        if (failTrack3 != 0) {
-            failed4 = true;
+            failed = true;
         }
     }
     //Test with all positions in range where cleave() should return -1
-    bool failed5 = false;
-    int failTrack4 = 0;
-    for (size_t x = 3; x < ipStr8.length() && !failed5; ++x) {
+    failed = false;
+    for (size_t x = 3; x < ipStr8.length() && !failed; ++x) {
         DNA_Strand dna20(ipStr8);
         if (dna20.cleave(x, "T!4") != -1) {
             std::cout << "Test 41 FAIL. Expected -1 but received: "
                       << dna20.cleave(x, "T!4") << std::endl;
-            ++failTrack4;
+            failed = true;
         }
         if (dna20.toString() != "A@T!4AT!4GGT*") {
             std::cout << "Test 42 FAIL. Expected: A@T!4AT!4GGT* but "
                          "received: " << dna20.toString() << std::endl;
-            ++failTrack4;
-        }
-        if (failTrack4 != 0) {
-            failed5 = true;
+            failed = true;
         }
     }
     //Test with out-of-range position, where cleave() should also return -1
@@ -482,6 +470,98 @@ int main()
                   << dna28.countEnzyme('A') << std::endl;
     }
 
+
+    //Test methods not yet tested with default constructed strand
+    std::string ipStr12;
+    if (dna1.toString() != ipStr12) {
+        std::cout << "Test 57 FAIL. Expected string with no characters but "
+                     "received: " << dna1.toString() << std::endl;
+    }
+    //We previously used an index greater than MAX_DNA, now let's try all possible
+    //indices less than MAX_DNA
+    failed = false;
+    for (size_t x = 0; x < MAX_DNA && !failed; ++x) {
+        try {
+            dna1.set('A', x);
+            std::cout << "Test 58 FAIL. \"out_of_range\" exception should be thrown."
+                      << std::endl;
+            failed = true;
+        }
+        catch (std::out_of_range &excpt) {}
+        catch (...) {
+            std::cout << "EXCEPTION ERROR --  set() threw the wrong exception."
+                      << std::endl;
+            failed = true;
+        }
+    }
+    //Test search()
+    if (dna1.search("A") != -1) {
+        std::cout << "Test 59 FAIL. Expected -1 but received: "
+                  << dna1.search("A") << std::endl;
+    }
+    if (dna1.search("") != -1) {
+        std::cout << "Test 60 FAIL. Expected -1 but received: "
+                  << dna1.search("") << std::endl;
+    }
+    failed = false;
+    for (size_t x = 0; (x < MAX_DNA * 2) && !failed; ++x) {
+        if (dna1.search(x, "B") != -1) {
+            std::cout << "Test 61 FAIL. Expected -1 but received: "
+                      << dna1.search(x, "B") << std::endl;
+            failed = true;
+        }
+        if (dna1.search(x, "") != -1) {
+            std::cout << "Test 62 FAIL. Expected -1 but received: "
+                      << dna1.search(x, "") << std::endl;
+            failed = true;
+        }
+        //Testing cleave() with specified position
+        if (dna1.cleave(x, "C") != -1) {
+            std::cout << "Test 63 FAIL. Expected -1 but received: "
+                      << dna1.cleave(x, "C") << std::endl;
+            failed = true;
+        }
+        if (dna1.cleave(x, "") != -1) {
+            std::cout << "Test 64 FAIL. Expected -1 but received: "
+                      << dna1.cleave(x, "") << std::endl;
+            failed = true;
+        }
+    }
+    //Test cleaveAll() and cleave() without specified start position
+    dna1.cleave("ABC");
+    if (dna1.toString() != ipStr12) {
+        std::cout << "Test 65 FAIL. Expected string with no characters but "
+                     "received: " << dna1.toString() << std::endl;
+    }
+    dna2.cleaveAll("");
+    if (dna2.toString() != "") {
+        std::cout << "Test 66 FAIL. Expected string with no characters but "
+                     "received: " << dna2.toString() << std::endl;
+    }
+    dna1.cleave("");
+    if (dna1.toString() != "") {
+        std::cout << "Test 67 FAIL. Expected string with no characters but "
+                     "received: " << dna1.toString() << std::endl;
+    }
+    dna2.cleaveAll("ABC");
+    if (dna2.toString() != "") {
+        std::cout << "Test 68 FAIL. Expected string with no characters but "
+                     "received: " << dna2.toString() << std::endl;
+    }
+    if (!dna1.isEqual(dna2)) {
+        std::cout << "Test 69 FAIL. No cleaving should be done, so strands "
+                     "both initialized with default constructor should be "
+                     "equal" << std::endl;
+    }
+    //Test countEnzyme() method
+    if (dna1.countEnzyme('Z') != 0) {
+        std::cout << " Test 70 FAIL. Expected o but received: "
+                  << dna1.countEnzyme('Z') << std::endl;
+    }
+    if (dna1.countEnzyme(' ') != 0) {
+        std::cout << " Test 71 FAIL. Expected o but received: "
+                  << dna1.countEnzyme(' ') << std::endl;
+    }
 
 
     // here is how you can test to make sure exceptions are correctly thrown
