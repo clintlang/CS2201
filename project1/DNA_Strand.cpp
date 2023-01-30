@@ -3,7 +3,7 @@
 // VUnetid: langct
 // Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: January 29th, 2023
+// Date: February 1st, 2023
 // Honor statement: I attest that I understand the honor code for this class and have neither given
 //                  nor received any unauthorized aid on this assignment.
 // Assignment Number: 1
@@ -16,10 +16,7 @@
 
 // Constructor
 // Create an empty DNA_Strand.
-DNA_Strand::DNA_Strand ()
-{
-    // add your code here and/or on base member initialization list
-}
+DNA_Strand::DNA_Strand () : mySize(0) {}
 
 
 // Constructor
@@ -28,8 +25,9 @@ DNA_Strand::DNA_Strand ()
 // characters of ipStr are used to initialize the DNA_Strand
 DNA_Strand::DNA_Strand (const std::string & ipStr)
 {
-    std::string junk(ipStr); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    // add your code here and/or on base member initialization list
+    for (mySize = 0; mySize < ipStr.length() && mySize < MAX_DNA; ++mySize) {
+        myDNA[mySize] = ipStr[mySize];
+    }
 }
 
 
@@ -37,7 +35,12 @@ DNA_Strand::DNA_Strand (const std::string & ipStr)
 //Returns string equivalent of the DNA
 std::string DNA_Strand::toString() const
 {
-    return "junk";  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    std::string strandString;
+    for (size_t x = 0; x < mySize; ++x) {
+        strandString += myDNA[x];
+    }
+
+    return strandString;
 }
 
 
@@ -47,7 +50,11 @@ std::string DNA_Strand::toString() const
 // Uses zero-based indexing.
 void DNA_Strand::set (char new_item, size_t index)
 {
-    std::string junk(std::to_string(index+new_item)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    if (inRange(index)) {
+        myDNA[index] = new_item;
+    } else {
+        throw std::out_of_range("Index out of range");
+    }
 }
 
 
@@ -57,15 +64,18 @@ void DNA_Strand::set (char new_item, size_t index)
 // Uses zero-based indexing.
 char DNA_Strand::get (size_t index) const
 {
-    std::string junk(std::to_string(index)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return '!';  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    if (inRange(index)) {
+        return myDNA[index];
+    } else {
+        throw std::out_of_range("Index out of range");
+    }
 }
 
 
 // Returns the current size of the DNA.
 size_t DNA_Strand::size () const
 {
-   return 999999;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+   return mySize;
 }
 
 
@@ -75,8 +85,17 @@ size_t DNA_Strand::size () const
 // .. size()-1 are equal, else false.
 bool DNA_Strand::isEqual (const DNA_Strand &s) const
 {
-    std::string junk(s.toString()); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return false;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    if (size() == s.size()) {
+        for (size_t x = 0; x < size(); ++x) {
+            if (get(x) != s.get(x)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 
@@ -85,8 +104,18 @@ bool DNA_Strand::isEqual (const DNA_Strand &s) const
 // Return -1 if not found.
 int DNA_Strand::search(const std::string & target) const
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return -99;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    size_t last = mySize - (size_t)target.length();
+    for (size_t x = 0; x <= last; ++last) {
+        for (size_t y = 0; y < target.length(); ++y) {
+            if (myDNA[x + y] != target[y]) {
+                break;
+            } else if (y == target.length() - 1) {
+                return (int)x;
+            }
+        }
+    }
+
+    return -1;
 }
 
 
@@ -96,20 +125,41 @@ int DNA_Strand::search(const std::string & target) const
 // Return -1 if not found. If pos is past end of strand, return -1.
 int DNA_Strand::search(size_t pos, const std::string & target) const
 {
-    std::string junk(target+std::to_string(pos)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return -99;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    size_t last = mySize - (size_t)target.length();
+    for (size_t x = pos; x <= last; ++last) {
+        for (size_t y = 0; y < target.length(); ++y) {
+            if (myDNA[x + y] != target[y]) {
+                break;
+            } else if (y == target.length() - 1) {
+                return (int)x;
+            }
+        }
+    }
+
+    return -1;
 }
 
 
 // cleave
 // Removes from current DNA strand the sequence between the end of the 
 // first occurrence of passed target sequence (e.g. "TTG"), through the end
-// of the second occurence of the target sequence. 
+// of the second occurrence of the target sequence.
 // pre: Array e.g. ACTTGACCTTGA and target e.g. "TTG"
 // post: ACTTGA  (ACCTTG removed)
 void DNA_Strand::cleave(const std::string & target)
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    auto tarLen = (size_t)target.length();
+    if (int firstTar = search(target) != -1) {
+        size_t startCleave = firstTar + tarLen;
+        if (search(startCleave, target) != -1) {
+            size_t endCleave = (size_t)search(startCleave, target) + tarLen;
+            size_t cleaveLen = endCleave - startCleave;
+            for (size_t x = 0; x < cleaveLen; ++x) {
+                myDNA[x + startCleave] = myDNA[x + endCleave];
+                --mySize;
+            }
+        }
+    }
 }
 
 
@@ -120,8 +170,24 @@ void DNA_Strand::cleave(const std::string & target)
 // post: ACTTGA  (ACCTTG removed) and return value = 5
 int DNA_Strand::cleave(size_t pos, const std::string & target)
 {
-    std::string junk(target+std::to_string(pos)+std::to_string(mySize)+myDNA[0]); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return -99;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    auto tarLen = (size_t)target.length();
+    if (int firstTar = search(pos, target) != -1) {
+        size_t startCleave = firstTar + tarLen;
+        if (search(startCleave, target) != -1) {
+            size_t endCleave = (size_t)search(startCleave, target) + tarLen;
+            size_t cleaveLen = endCleave - startCleave;
+            for (size_t x = 0; x < cleaveLen; ++x) {
+                myDNA[x + startCleave] = myDNA[x + endCleave];
+                --mySize;
+            }
+
+            return search(pos, target) + tarLen;
+        }
+
+        return -1;
+    }
+
+    return -1;
 }
 
 
@@ -135,17 +201,39 @@ int DNA_Strand::cleave(size_t pos, const std::string & target)
 // post: ACTTGGGTTGCC (ATTG and CTTG removed)
 void DNA_Strand::cleaveAll(const std::string & target)
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    bool doneCleave = false;
+    while (!doneCleave) {
+        auto tarLen = (size_t) target.length();
+        if (int firstTar = search(target) != -1) {
+            size_t startCleave = firstTar + tarLen;
+            if (search(startCleave, target) != -1) {
+                size_t endCleave = (size_t) search(startCleave, target) + tarLen;
+                size_t cleaveLen = endCleave - startCleave;
+                for (size_t x = 0; x < cleaveLen; ++x) {
+                    myDNA[x + startCleave] = myDNA[x + endCleave];
+                    --mySize;
+                }
+            } else {
+                doneCleave = true;
+            }
+        }
+    }
 }
 
 
 // countEnzyme
-// Counts the number of occurences of a single character target sequence
+// Counts the number of occurrences of a single character target sequence
 // in the DNA strand.
 size_t DNA_Strand::countEnzyme(char target) const
 {
-    std::string junk(std::to_string(target)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return 999999;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    size_t count = 0;
+    for (size_t x = 0; x < mySize; ++x) {
+        if (myDNA[x] == target) {
+            ++count;
+        }
+    }
+
+    return count;
 }
 
 
@@ -154,7 +242,6 @@ size_t DNA_Strand::countEnzyme(char target) const
 // else returns false.
 bool DNA_Strand::inRange (size_t index) const
 {
-    std::string junk(std::to_string(index)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return false;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    return index < mySize;
 }
 
