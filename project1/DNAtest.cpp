@@ -11,7 +11,7 @@
 // Description: Testing of DNA_Strand ADT
 //
 //
-// Last Changed: January 24th, 2023
+// Last Changed: January 30th, 2023
 
 #include <iostream>
 #include <stdexcept>
@@ -170,7 +170,7 @@ int main()
 
 
     //Test search() method
-    DNA_Strand dna8("\\\\\\");
+    DNA_Strand dna8(R"(\\\)");
     bool failed = false;
     for (size_t x = 0; x < dna8.size() && !failed; ++x) {
         if (dna8.search("\\") != 0) {
@@ -561,6 +561,22 @@ int main()
     if (dna1.countEnzyme(' ') != 0) {
         std::cout << " Test 71 FAIL. Expected o but received: "
                   << dna1.countEnzyme(' ') << std::endl;
+    }
+
+
+    //Test was added after first grading of assignment
+    //Final test of isEqual() with DNA_Strand of same length but
+    //different contents
+    DNA_Strand dna29("AAAA");
+    DNA_Strand dna30("BBBB");
+    if (dna29.isEqual(dna30)) {
+        std::cout << "Test 72 FAIL. Strands with same length but with different "
+                     "strings passed should not be equal." << std::endl;
+    }
+    if (dna30.isEqual(dna29)) {
+        std::cout << "Test 73 FAIL. Reflective test of strands with same length "
+                     "but with different strings passed should not return equal."
+                  << std::endl;
     }
 
     return 0;

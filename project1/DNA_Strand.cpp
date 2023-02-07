@@ -23,9 +23,9 @@ DNA_Strand::DNA_Strand () : mySize(0) {}
 // Create an initialized DNA_Strand.
 // If the string ipStr is larger than MAX_DNA, then only the first MAX_DNA
 // characters of ipStr are used to initialize the DNA_Strand
-DNA_Strand::DNA_Strand (const std::string & ipStr)
+DNA_Strand::DNA_Strand (const std::string & ipStr) : mySize(0)
 {
-    for (mySize = 0; mySize < ipStr.length() && mySize < MAX_DNA; ++mySize) {
+    for (; mySize < ipStr.length() && mySize < MAX_DNA; ++mySize) {
         myDNA[mySize] = ipStr[mySize];
     }
 }
@@ -73,10 +73,7 @@ char DNA_Strand::get (size_t index) const
 
 
 // Returns the current size of the DNA.
-size_t DNA_Strand::size () const
-{
-   return mySize;
-}
+size_t DNA_Strand::size () const {return mySize;}
 
 
 // isEqual
@@ -85,8 +82,9 @@ size_t DNA_Strand::size () const
 // .. size()-1 are equal, else false.
 bool DNA_Strand::isEqual (const DNA_Strand &s) const
 {
-    if (size() == s.size()) {
-        for (size_t x = 0; x < size(); ++x) {
+    size_t sSize = s.size();
+    if (size() == sSize) {
+        for (size_t x = 0; x < sSize; ++x) {
             if (get(x) != s.get(x)) {
                 return false;
             }
@@ -104,18 +102,7 @@ bool DNA_Strand::isEqual (const DNA_Strand &s) const
 // Return -1 if not found.
 int DNA_Strand::search(const std::string & target) const
 {
-    size_t last = mySize - (size_t)target.length();
-    for (size_t x = 0; x <= last; ++last) {
-        for (size_t y = 0; y < target.length(); ++y) {
-            if (myDNA[x + y] != target[y]) {
-                break;
-            } else if (y == target.length() - 1) {
-                return (int)x;
-            }
-        }
-    }
-
-    return -1;
+    return search(0, target);
 }
 
 
@@ -125,13 +112,13 @@ int DNA_Strand::search(const std::string & target) const
 // Return -1 if not found. If pos is past end of strand, return -1.
 int DNA_Strand::search(size_t pos, const std::string & target) const
 {
-    size_t last = mySize - (size_t)target.length();
-    for (size_t x = pos; x <= last; ++last) {
-        for (size_t y = 0; y < target.length(); ++y) {
+    int tLen = (int)target.length(), last = (int)mySize - tLen;
+    for (int x = (int)pos; x <= last; ++x) {
+        for (int y = 0; y < tLen; ++y) {
             if (myDNA[x + y] != target[y]) {
                 break;
-            } else if (y == target.length() - 1) {
-                return (int)x;
+            } else if (y == tLen - 1) {
+                return x;
             }
         }
     }
@@ -148,18 +135,7 @@ int DNA_Strand::search(size_t pos, const std::string & target) const
 // post: ACTTGA  (ACCTTG removed)
 void DNA_Strand::cleave(const std::string & target)
 {
-    auto tarLen = (size_t)target.length();
-    if (int firstTar = search(target) != -1) {
-        size_t startCleave = firstTar + tarLen;
-        if (search(startCleave, target) != -1) {
-            size_t endCleave = (size_t)search(startCleave, target) + tarLen;
-            size_t cleaveLen = endCleave - startCleave;
-            for (size_t x = 0; x < cleaveLen; ++x) {
-                myDNA[x + startCleave] = myDNA[x + endCleave];
-                --mySize;
-            }
-        }
-    }
+    cleave(0, target);
 }
 
 
@@ -170,18 +146,20 @@ void DNA_Strand::cleave(const std::string & target)
 // post: ACTTGA  (ACCTTG removed) and return value = 5
 int DNA_Strand::cleave(size_t pos, const std::string & target)
 {
-    auto tarLen = (size_t)target.length();
-    if (int firstTar = search(pos, target) != -1) {
-        size_t startCleave = firstTar + tarLen;
-        if (search(startCleave, target) != -1) {
-            size_t endCleave = (size_t)search(startCleave, target) + tarLen;
+    int index = search(pos, target);
+    if (index != -1) {
+        size_t startCleave = index + target.length();
+        index = search(startCleave, target);
+        if (index != -1) {
+            size_t endCleave = index + target.length();
             size_t cleaveLen = endCleave - startCleave;
-            for (size_t x = 0; x < cleaveLen; ++x) {
-                myDNA[x + startCleave] = myDNA[x + endCleave];
-                --mySize;
+            index = (int) startCleave;
+            for (; endCleave < mySize; ++endCleave) {
+                myDNA[index++] = myDNA[endCleave];
             }
 
-            return search(pos, target) + tarLen;
+            mySize -= cleaveLen;
+            return (int)startCleave;
         }
 
         return -1;
@@ -194,30 +172,17 @@ int DNA_Strand::cleave(size_t pos, const std::string & target)
 // cleaveAll
 // Removes from current DNA strand the sequence between pairs of target 
 // sequence, i.e. from the end 1 through the end of 2, from the end of 3 
-// through the end of 4, etc, but NOT from the end of 2 through the end 3,
+// through the end of 4, etc., but NOT from the end of 2 through the end 3,
 // or from the end of 4 through the end of 5.
 // (Make sure that you understand the specification)
 // pre: Array e.g. ACTTGATTGGGTTGCTTGCC and target e.g. "TTG"
 // post: ACTTGGGTTGCC (ATTG and CTTG removed)
 void DNA_Strand::cleaveAll(const std::string & target)
 {
-    bool doneCleave = false;
-    while (!doneCleave) {
-        auto tarLen = (size_t) target.length();
-        if (int firstTar = search(target) != -1) {
-            size_t startCleave = firstTar + tarLen;
-            if (search(startCleave, target) != -1) {
-                size_t endCleave = (size_t) search(startCleave, target) + tarLen;
-                size_t cleaveLen = endCleave - startCleave;
-                for (size_t x = 0; x < cleaveLen; ++x) {
-                    myDNA[x + startCleave] = myDNA[x + endCleave];
-                    --mySize;
-                }
-            } else {
-                doneCleave = true;
-            }
-        }
-    }
+    int pos = 0;
+    do {
+        pos = cleave((size_t)pos, target);
+    } while (pos != -1);
 }
 
 
@@ -240,8 +205,5 @@ size_t DNA_Strand::countEnzyme(char target) const
 // inRange : helper function
 // Returns true if index is within range, i.e., 0 <= index < mySize 
 // else returns false.
-bool DNA_Strand::inRange (size_t index) const
-{
-    return index < mySize;
-}
+bool DNA_Strand::inRange (size_t index) const {return index < mySize;}
 
