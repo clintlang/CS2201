@@ -40,36 +40,36 @@ int main ()
 //    else
 //        std::cout << "Fail " << std::endl;
 //
-//    //************************************************************************
-//    std::cout << "Testing member: ";
-//    int tmp[10] = {12, 13, 21, 30, 2, 55, 1000, 5, 201, 789};
-//    if (member(55, tmp, 10))
-//        std::cout << "Pass " << std::endl;
-//    else
-//        std::cout << "Fail " << std::endl;
-//
-//    //************************************************************************
-//    std::cout << "Testing isPalindrome: ";
-//    std::string my_str("abcdeedcba");
-//    if (isPalindrome(my_str))
-//        std::cout << "Pass " << std::endl;
-//    else
-//        std::cout << "Fail " << std::endl;
-//
-//    //************************************************************************
-//    std::cout << "Testing harmonicSum: ";
-//    double epsilon = 0.000000001;
-//    if (std::abs(harmonicSum(20) - double(55835135)/double(15519504)) < epsilon)
-//        std::cout << "Pass " << std::endl;
-//    else
-//        std::cout << "Fail " << std::endl;
-//
-//    std::cout << "Testing harmonicSum: ";
-//    std::cout << "the first 4 Harmonic sums are:" << std::endl;
-//    for (size_t i=1; i<5; i++) {
-//        std::cout << harmonicSum(i) << std::endl;
-//    }
-//
+    //************************************************************************
+    std::cout << "Testing member: ";
+    int tmp[10] = {12, 13, 21, 30, 2, 55, 1000, 5, 201, 789};
+    if (member(55, tmp, 10))
+        std::cout << "Pass " << std::endl;
+    else
+        std::cout << "Fail " << std::endl;
+
+    //************************************************************************
+    std::cout << "Testing isPalindrome: ";
+    std::string my_str("abcdeedcba");
+    if (isPalindrome(my_str))
+        std::cout << "Pass " << std::endl;
+    else
+        std::cout << "Fail " << std::endl;
+
+    //************************************************************************
+    std::cout << "Testing harmonicSum: ";
+    double epsilon = 0.000000001;
+    if (std::abs(harmonicSum(20) - double(55835135)/double(15519504)) < epsilon)
+        std::cout << "Pass " << std::endl;
+    else
+        std::cout << "Fail " << std::endl;
+
+    std::cout << "Testing harmonicSum: ";
+    std::cout << "the first 4 Harmonic sums are:" << std::endl;
+    for (size_t i=1; i<5; i++) {
+        std::cout << harmonicSum(i) << std::endl;
+    }
+
 //    //************************************************************************
 //    std::cout << "Testing addStar: ";
 //    if (addStar("abc")=="a*b*c")
