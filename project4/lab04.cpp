@@ -40,7 +40,7 @@ bool member(int target, const int set[], size_t size)
 
 bool isPalindrome(const std::string &str)
 {
-    if (str.length() == 0) {return true;}
+    if (str.length() <= 1) {return true;}
 
     if (tolower(str[0]) == tolower(str[str.length() - 1])) {
         return isPalindrome(str.substr(1, str.length() - 2));
@@ -87,8 +87,97 @@ size_t gcd(size_t x, size_t y)
 {
     if (y == 0) {return x;}
 
-    size_t r = x % y;
-
-    return gcd(y, r);
+    return gcd(y, x % y);
 }
 
+
+std::string helloWorldRepeat(size_t num)
+{
+    if (num == 0) {return "";}
+
+    if (num != 1) {return "Hello " + helloWorldRepeat(num - 1) + " World";}
+
+    return "Hello " + helloWorldRepeat(num - 1) + "World";
+}
+
+
+std::string convert2Binary(size_t num)
+{
+    if (num == 0) {return "";}
+
+    if (num % 2 == 0) {return convert2Binary(num / 2) + "0";}
+
+    return convert2Binary(num / 2) + "1";
+}
+
+
+void printPattern(size_t num)
+{
+    if (num != 0) {
+        for (size_t x = 0; x < num; ++x) { std::cout << "*"; }
+        std::cout << std::endl;
+
+        printPattern(num - 1);
+
+        if (num != 1) {
+            for (size_t x = 0; x < num; ++x) { std::cout << "*"; }
+            std::cout << std::endl;
+        }
+    }
+}
+
+
+void reverseArray(int a[], size_t first, size_t last)
+{
+    if (first < last) {
+        int tmp = a[first];
+        a[first] = a[last];
+        a[last] = tmp;
+        reverseArray(a, first + 1, last - 1);
+    }
+}
+
+
+void arrayInitialize(int a[], int value, size_t lb, size_t ub)
+{
+    if (ub > lb) {
+        size_t half = (ub - lb) / 2;
+        a[lb] = value;
+        a[ub] = value;
+
+        arrayInitialize(a, value, lb + 1, half);
+        arrayInitialize(a, value, half, ub - 1);
+    }
+}
+
+
+size_t binomialCoeff(size_t n, size_t r)
+{
+    if (r == 0 || r == n) {return 1;}
+
+    return binomialCoeff(n - 1, r - 1) + binomialCoeff(n - 1, r);
+}
+
+
+size_t count2(size_t n)
+{
+    if (n == 2) {return 1;}
+
+    if (n < 10) {return 0;}
+
+    if (n % 100 == 22) {return 2 + count2(n / 10);}
+
+    if (n % 10 == 2) {return 1 + count2(n / 10);}
+
+    return count2(n / 10);
+}
+
+
+bool relatedSquares(int anArray[], size_t size)
+{
+    if (size <= 1) {return true;}
+
+    if ((double)sqrt(anArray[size - 1]) != (double)anArray[size - 2]) {return false;}
+
+    return relatedSquares(anArray, size - 1);
+}
