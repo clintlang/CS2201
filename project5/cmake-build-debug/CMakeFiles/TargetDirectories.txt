@@ -1,0 +1,4 @@
+/Users/clint/Desktop/CS2201/project5/cmake-build-debug/CMakeFiles/project5.dir
+/Users/clint/Desktop/CS2201/project5/cmake-build-debug/CMakeFiles/project5-test.dir
+/Users/clint/Desktop/CS2201/project5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/clint/Desktop/CS2201/project5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
