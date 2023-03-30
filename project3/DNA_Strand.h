@@ -1,11 +1,12 @@
 // File name: DNA_Strand.h
-// Author: 
-// VUnetid: 
-// Email: 
+// Author: Clinton Lang
+// VUnetid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: 
-// Honor statement:
-// Assignment Number: ##
+// Date: February 23rd, 2023
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+// Assignment Number: 3
 // Description: This will be an DNA_Strand implemented with a linked list.
 
 

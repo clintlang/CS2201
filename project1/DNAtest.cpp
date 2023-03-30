@@ -579,5 +579,23 @@ int main()
                   << std::endl;
     }
 
+    DNA_Strand dna31("AAAAAAAAAAA");
+    if (dna31.countEnzyme("AAA") != 3) {
+        std::cout << "Test 74 FAIL. Expected 3 but received: "
+                  << dna31.countEnzyme("AAA") << std::endl;
+    }
+    DNA_Strand dna32("AAAAAAAAAAAA");
+    if (dna32.countEnzyme("AAA") != 4) {
+        std::cout << "Test 75 FAIL. Expected 4 but received: "
+                  << dna32.countEnzyme("AAA") << std::endl;
+    }
+
+    //Test method from test, indexOfMaxRun()
+    DNA_Strand dna33("trgeeekjipeeeeuhg");
+    if (dna33.indexOfMaxRun('e') != 10) {
+        std::cout << "Test 76 FAIL. Expected 10 but received: "
+                  << dna33.indexOfMaxRun('e') << std::endl;
+    }
+
     return 0;
 }

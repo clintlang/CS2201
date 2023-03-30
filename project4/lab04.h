@@ -1,14 +1,13 @@
 // File name: lab04.h
-// Author: Clinton Lang
+// Author: Dr. Roth
 // VUnetid: langct
 // Email: clinton.t.lang@vanderbilt.edu
 // Class: CS 2201
 // Assignment Number: 4
-//
 // Honor statement: I attest that I understand the honor code for this class and have neither given
 //                  nor received any unauthorized aid on this assignment.
 //
-// Description: .h file for lab04.cpp
+// Description: header file for the functions in lab04.cpp
 //
 // Last Changed: March 6th, 2023
 //
@@ -315,7 +314,7 @@ bool contains(NodePtr super, NodePtr sub);
 //
 // If you attempt it and want feedback, please change the zero
 // on the following line to a one.
-#define CHALLENGE  0
+#define CHALLENGE  1
 
 NodePtr reverseList(NodePtr tmpPtr);
 // Task: Reverse the nodes in a linked list.

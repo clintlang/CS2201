@@ -201,6 +201,53 @@ size_t DNA_Strand::countEnzyme(char target) const
     return count;
 }
 
+size_t DNA_Strand::countEnzyme(const std::string & target) const
+{
+    size_t count = 0, tLen = target.length();
+    size_t x = 0;
+    while (x < mySize) {
+        int searchFind = search(x, target);
+        if (searchFind != -1) {
+            ++count;
+            x = (size_t)searchFind + tLen;
+        } else {
+            return count;
+        }
+    }
+
+    return count;
+}
+
+// append (accepting a string parameter)
+// Append the characters of the parameter to the end of the current DNA,
+// growing the array if necessary.
+// Example: if myDNA contained ACTTGA and "ACCTG" was received as a parameter,
+// then afterward myDNA will contain ACTTGAACCTG
+void DNA_Strand::append(const std::string & rhs)
+{
+    std::string junk(rhs); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+}
+
+int DNA_Strand::indexOfMaxRun(char target) const
+{
+    int runIdx = -1;
+    int maxRun = 0;
+    int tempRun = 0;
+    for (size_t x = 0; x < mySize; ++x) {
+        if (myDNA[x] == target) {
+            ++tempRun;
+            if (tempRun > maxRun) {
+                runIdx = (int)x - maxRun;
+                maxRun = tempRun;
+            }
+        } else {
+            tempRun = 0;
+        }
+    }
+
+    return runIdx;
+}
+
 
 // inRange : helper function
 // Returns true if index is within range, i.e., 0 <= index < mySize 

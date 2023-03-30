@@ -111,6 +111,12 @@ public:
    // in the DNA strand.
    size_t countEnzyme(char target) const;
 
+   size_t countEnzyme(const std::string & target) const;
+
+   void append(const std::string &rhs);
+
+   int indexOfMaxRun(char target) const;
+
 
 };
 

@@ -1,17 +1,22 @@
 // File name: GuitarString.h
-// Author: 
-// userid: 
-// Email: 
+// Author: Clinton Lang
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number:
-// Description:  
-// Honor statement:
-// Last Changed: 
+// Assignment Number: 6
+//
+// Description: simulates the playing of guitar notes, function declarations
+//
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+//
+// Last Changed: March 27th, 2023
 
 #ifndef GUITARSTRING_H
 #define GUITARSTRING_H
 
 #include "DblQueue.h"
+#include <random>
 
 
 const size_t SAMPLE_RATE = 44100;
@@ -19,8 +24,10 @@ const double DECAY_FACTOR = 0.996;
 
 class GuitarString {
 private :
-
-    // TODO -- your job to define
+    size_t time;
+    double frequency;
+    DblQueue queue;
+    std::default_random_engine generator;
 
 
 public:

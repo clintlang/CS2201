@@ -1,14 +1,18 @@
 // File name: DblStack.h
-// Name: 
-// VUnetid: 
-// Email: 
-// Class: 
-// Assignment Number:
-// Honor statement: 
-// Description:  Maintains a stack of ItemType.  Contains functions
-//     prototypes to push, pop, retrieve top, and retrieve size of the 
-//     stack.
-// Last Changed:  
+// Name: Clinton Lang
+// VUnetid: langct
+// Email: clinton.t.lang@vanderbilt.edu
+// Class: CS 2201
+// Assignment Number: 5
+//
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+//
+// Description:  Maintains a stack of ItemType.  Contains function
+//               prototypes to push, pop, retrieve top, and retrieve size of the
+//               stack.
+//
+// Last Changed: March 14th, 2023
 
 #ifndef DBLSTACK_H
 #define DBLSTACK_H
@@ -21,8 +25,15 @@ class DblStack
 {
   private:
 
-    // TODO
-    // it is your job to define the private part of the class
+    struct Node {
+        ItemType val;
+        Node* next;
+        Node(ItemType val, Node* next = nullptr) : val(val), next(next) {}
+    };
+
+    size_t mySize;
+
+    Node* myHead;
 
  
   public:

@@ -1,12 +1,16 @@
 // File name: DblQueue.h
-// Author: 
-// userid: 
-// Email: 
+// Author: Clinton Lang
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number:
-// Description:  
-// Honor statement:
-// Last Changed: 
+// Assignment Number: 6
+//
+// Description: declares functions for a queue of ItemType
+//
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+//
+// Last Changed: March 27th, 2023
 
 
 
@@ -20,8 +24,16 @@ typedef double ItemType;
 class DblQueue
 {
   private:
+    struct Node{
+        ItemType val;
+        Node* next;
+        Node(ItemType val, Node* next = nullptr) : val(val), next(next) {}
+    };
 
-    // TODO -- your job to define
+    Node* myHead;
+    Node* myTail;
+
+    size_t mySize;
 
 
   public:

@@ -1,13 +1,15 @@
-// Name:
-// Email:
-// VUnetid:
-// Class:
-// Date:
-// Honor statement: 
-// Description:
-// Reverse a sound data file by reading in all the data samples,
-// pushing them onto stacks, and then creating a new sound data
-// file while popping values off the stacks.
+// Name: Clinton Lang
+// Email: clinton.t.lang@vanderbilt.edu
+// VUnetid: langct
+// Class: CS 2201
+// Date: March 20th, 2023
+//
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+//
+// Description: Reverse a sound data file by reading in all the data samples,
+//              pushing them onto stacks, and then creating a new sound data
+//              file while popping values off the stacks.
 
 #include <iostream>
 #include <fstream>
@@ -42,11 +44,23 @@ int main() {
     // Your job is to read the rest of the input file and
     // process the data. Hint: USE THE EXTRACTION OPERATOR!!
     // Read values in pairs.
+    DblStack timeStk, soundStk;
+    ItemType num;
+    long count = 0;
+    while (infile >> num) {
+        count % 2 == 0 ? timeStk.push(num) : soundStk.push(num);
+        ++count;
+    }
+
+    DblStack reverseTime;
+    while (!timeStk.isEmpty()) {
+        reverseTime.push(timeStk.top());
+        timeStk.pop();
+    }
 
 
 
-
-    std::cout << "There were " << "??" << " samples in the file." << std::endl;
+    std::cout << "There were " << count / 2 << " samples in the file." << std::endl;
     std::cout << "Creating output file... wait for Done message." << std::endl;
 
 
@@ -64,6 +78,11 @@ int main() {
     // Your job is to write the rest of the output file.
     // Each line should start with two blanks, then the time-step
     // value, then a single tab character '\t', then the sound data value.
+    while (!soundStk.isEmpty()) {
+        outfile << "  " << reverseTime.top() << '\t' << soundStk.top() << std::endl;
+        reverseTime.pop();
+        soundStk.pop();
+    }
 
 
 

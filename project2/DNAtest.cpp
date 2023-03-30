@@ -1,17 +1,18 @@
 // File name: DNAtest.cpp
-// Author: 
-// VUnetid:
-// Email:
+// Author: Clinton Lang
+// VUnetid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date:
-// Honor statement:
-// Assignment Number:
+// Date: Valentine's Day, 2023
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+// Assignment Number: 2
 //
 // Description: Testing of DNA_Strand ADT
 //
 //   add MORE TESTS OF YOUR OWN!!!
 //
-// Last Changed: 
+// Last Changed: Valentine's Day, 2023
 
 #include <iostream>
 #include <stdexcept>
@@ -68,8 +69,8 @@ int main ()
     }
 
 
-    //create a DNA whose amount of characters exceeds value of MAX_DNA
-    std::string ipStr2(MAX_DNA + 1, 'A');
+    //create a DNA whose amount of characters exceeds value of DEFAULT_DNA_SIZE
+    std::string ipStr2(DEFAULT_DNA_SIZE + 1, 'A');
     DNA_Strand dna5(ipStr2);
 
     //Test that strands with parameters of different values are not equal
@@ -84,60 +85,60 @@ int main ()
     }
 
     //Test toString() and size() to make sure DNA_Strand does not accept
-    //more than MAX_DNA characters
-    if (dna5.toString() == ipStr2) {
-        std::cout << "Test 10 FAIL. Strand should not contain more than "
-                     "MAX_DNA characters. Strand contains " << dna5.size()
-                  << " characters upon test failure." << std::endl;
-    }
-    if (dna5.size() != MAX_DNA) {
-        std::cout << "Test 11 FAIL. Strand passed with a string containing more "
-                     "than MAX_DNA characters should only contain MAX_DNA "
-                     "characters. Strand contains " << dna5.size() << " "
-                                                                      "characters upon test failure."
-                  << std::endl;
-    }
+    //more than DEFAULT_DNA_SIZE characters
+//    if (dna5.toString() == ipStr2) {
+//        std::cout << "Test 10 FAIL. Strand should not contain more than "
+//                     "DEFAULT_DNA_SIZE characters. Strand contains " << dna5.size()
+//                  << " characters upon test failure." << std::endl;
+//    }
+//    if (dna5.size() != DEFAULT_DNA_SIZE) {
+//        std::cout << "Test 11 FAIL. Strand passed with a string containing more "
+//                     "than DEFAULT_DNA_SIZE characters should only contain DEFAULT_DNA_SIZE "
+//                     "characters. Strand contains " << dna5.size() << " "
+//                                                                      "characters upon test failure."
+//                  << std::endl;
+//    }
 
 
     //Test that get() throws exception when passed out-of-range index
-    try {
-        std::cout << "Expect an \"out_of_range\" exception" << std::endl;
-        std::cout << "The 51st character of dna5 is: " << dna5.get(MAX_DNA)
-                  << std::endl;
-        std::cout << "Test 12 FAIL. \"out_of_range\" exception should be thrown."
-                  << std::endl;
-    }
-    catch (std::out_of_range& excpt) {
-        std::cout << "Exception for Test 12 was properly thrown and caught :: "
-                  << excpt.what() << std::endl;
-    }
-    catch (...) {
-        std::cout << "EXCEPTION ERROR --  get() threw the wrong exception."
-                  << std::endl;
-    }
+//    try {
+//        std::cout << "Expect an \"out_of_range\" exception" << std::endl;
+//        std::cout << "The 51st character of dna5 is: " << dna5.get(DEFAULT_DNA_SIZE)
+//                  << std::endl;
+//        std::cout << "Test 12 FAIL. \"out_of_range\" exception should be thrown."
+//                  << std::endl;
+//    }
+//    catch (std::out_of_range& excpt) {
+//        std::cout << "Exception for Test 12 was properly thrown and caught :: "
+//                  << excpt.what() << std::endl;
+//    }
+//    catch (...) {
+//        std::cout << "EXCEPTION ERROR --  get() threw the wrong exception."
+//                  << std::endl;
+//    }
 
 
-    ipStr2.resize(MAX_DNA + 10000, 'A');
-    DNA_Strand dna6(ipStr2);
-    //Test toString() and size() to make sure DNA_Strand does not accept
-    //significantly more than MAX_DNA characters
-    if (dna6.toString() == ipStr2) {
-        std::cout << "Test 13 FAIL. Strand should not contain more than "
-                     "MAX_DNA characters. Strand contains " << dna6.size()
-                  << " characters upon test failure." << std::endl;
-    }
-    if (dna6.size() != MAX_DNA) {
-        std::cout << "Test 14 FAIL. Strand passed with a string containing more "
-                     "than MAX_DNA characters should only contain MAX_DNA "
-                     "characters. Strand contains " << dna6.size() << "characters "
-                                                                      "upon test failure."
-                  << std::endl;
-    }
+//    ipStr2.resize(DEFAULT_DNA_SIZE + 10000, 'A');
+//    DNA_Strand dna6(ipStr2);
+//    //Test toString() and size() to make sure DNA_Strand does not accept
+//    //significantly more than DEFAULT_DNA_SIZE characters
+//    if (dna6.toString() == ipStr2) {
+//        std::cout << "Test 13 FAIL. Strand should not contain more than "
+//                     "DEFAULT_DNA_SIZE characters. Strand contains " << dna6.size()
+//                  << " characters upon test failure." << std::endl;
+//    }
+//    if (dna6.size() != DEFAULT_DNA_SIZE) {
+//        std::cout << "Test 14 FAIL. Strand passed with a string containing more "
+//                     "than DEFAULT_DNA_SIZE characters should only contain DEFAULT_DNA_SIZE "
+//                     "characters. Strand contains " << dna6.size() << "characters "
+//                                                                      "upon test failure."
+//                  << std::endl;
+//    }
 
     try {
         std::cout << "Expect an \"out_of_range\" exception" << std::endl;
         std::cout << "The 10050th character of dna5 is: "
-                  << dna5.get(MAX_DNA + 9999)
+                  << dna5.get(DEFAULT_DNA_SIZE + 9999)
                   << std::endl;
         std::cout << "Test 15 FAIL. \"out_of_range\" exception should be thrown."
                   << std::endl;
@@ -229,7 +230,7 @@ int main ()
     DNA_Strand dna10;
     //testing set method with out-of-range index to assure exception is thrown
     try {
-        dna10.set('A', MAX_DNA);
+        dna10.set('A', DEFAULT_DNA_SIZE);
         std::cout << "Test 25 FAIL. \"out_of_range\" exception should be thrown."
                   << std::endl;
     }
@@ -241,7 +242,7 @@ int main ()
 
 
     //Similar to tests 10 and 13, but instead passed with a parameter that is not
-    //longer than MAX_DNA
+    //longer than DEFAULT_DNA_SIZE
     std::string ipStr3 = "ABCDEABCDEFG";
     DNA_Strand dna11(ipStr3);
     try {
@@ -476,10 +477,10 @@ int main ()
         std::cout << "Test 57 FAIL. Expected string with no characters but "
                      "received: " << dna1.toString() << std::endl;
     }
-    //We previously used an index greater than MAX_DNA, now let's try all possible
-    //indices less than MAX_DNA
+    //We previously used an index greater than DEFAULT_DNA_SIZE, now let's try all possible
+    //indices less than DEFAULT_DNA_SIZE
     failed = false;
-    for (size_t x = 0; x < MAX_DNA && !failed; ++x) {
+    for (size_t x = 0; x < DEFAULT_DNA_SIZE && !failed; ++x) {
         try {
             dna1.set('A', x);
             std::cout << "Test 58 FAIL. \"out_of_range\" exception should be thrown."
@@ -503,7 +504,7 @@ int main ()
                   << dna1.search("") << std::endl;
     }
     failed = false;
-    for (size_t x = 0; (x < MAX_DNA * 2) && !failed; ++x) {
+    for (size_t x = 0; (x < DEFAULT_DNA_SIZE * 2) && !failed; ++x) {
         if (dna1.search(x, "B") != -1) {
             std::cout << "Test 61 FAIL. Expected -1 but received: "
                       << dna1.search(x, "B") << std::endl;
@@ -579,31 +580,111 @@ int main ()
     }
 
 
+    //Test newly added countEnzyme() with string parameter
+    DNA_Strand dna31("AAAAAAAAAAA");
+    if (dna31.countEnzyme("AAA") != 3) {
+        std::cout << "Test 74 FAIL. Expected 3 but received: "
+                  << dna31.countEnzyme("AAA") << std::endl;
+    }
+    DNA_Strand dna32("AAAAAAAAAAAA");
+    if (dna32.countEnzyme("AAA") != 4) {
+        std::cout << "Test 75 FAIL. Expected 4 but received: "
+                  << dna32.countEnzyme("AAA") << std::endl;
+    }
+
+    //Test grow()
+    DNA_Strand dna33(5);
+    dna33.grow(3);
+    if (dna33.maxSize() != 5) {
+        std::cout << "test 76 FAIL. Expected 5 but received: "
+                  << dna33.maxSize() << std::endl;
+    }
+    dna33.grow(6);
+    if (dna33.maxSize() != 6) {
+        std::cout << "test 77 FAIL. Expected 6 but received: "
+                  << dna33.maxSize() << std::endl;
+    }
+
+    //Test append() with both parameter types
+    DNA_Strand dna34("ACTTGA");
+    dna34.append("ACCTG");
+    if (dna34.toString() != "ACTTGAACCTG") {
+        std::cout << "Test 78 FAIL. append() did not make "
+                     "desired changes." << std::endl;
+    }
+    DNA_Strand dna35("ACTTGA");
+    DNA_Strand dna36("ACCTG");
+    dna35.append(dna36);
+    if (!dna35.isEqual(dna34)) {
+        std::cout << "Test 79 FAIL. After append() is called, "
+                     "both strands should be equal." << std::endl;
+    }
+
+    //Testing splice() methods
+    DNA_Strand dna37("ACTTGCACATTGABRTTGHYU");
+    dna37.splice("TTG", "splice");
+    if (dna37.toString() != "ACTTGspliceABRTTGHYU") {
+        std::cout << "Test 80 FAIL. splice() did not make "
+                     "desired changes." << std::endl;
+    }
+    DNA_Strand dna38("ACTTGCACATTGABRTTGHYU");
+    dna38.splice(3, "TTG", "splice");
+    if (dna38.toString() != "ACTTGCACATTGspliceHYU") {
+        std::cout << "Test 81 FAIL. splice() did not make "
+                     "desired changes." << std::endl;
+    }
+
+    //testing constructors
+    DNA_Strand dna39;
+    if (dna39.maxSize() != DEFAULT_DNA_SIZE) {
+        std::cout << "Test 82 FAIL. Default constructed strand "
+                     "is not correct size." << std::endl;
+    }
+    DNA_Strand dna40(80);
+    if (dna40.maxSize() != 80) {
+        std::cout << "Test 82 FAIL. Size constructed strand "
+                     "is not specified size." << std::endl;
+    }
+    DNA_Strand dna41(dna40);
+    if (!dna41.isEqual(dna40)) {
+        std::cout << "Test 83 FAIL. Copy constructor "
+                     "should make equal strands" << std::endl;
+    }
+    DNA_Strand dna44("jagsvdt");
+    DNA_Strand dna45(dna44);
+    if (!dna44.isEqual(dna45)) {
+        std::cout << "Test 84 FAIL. Copy constructor "
+                     "should make equal strands" << std::endl;
+    }
+
+    //Test copy assignment operator
+    DNA_Strand dna42("jagsvdt");
+    DNA_Strand dna43("ghnkip");
+    dna42 = dna43;
+    if (!dna42.isEqual(dna43)) {
+        std::cout << "Test 84 FAIL. Copy assignment operator "
+                     "should make equal strands" << std::endl;
+    }
+
 
     // Here's an example of how to test the destructor. You can use a similar strategy
     // to test for other memory issues.
     // Uncomment the follow block of code when you are ready to test the destructor.
-//    std::string big("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//    std::cout << "Testing the destructor. Watch the memory usage of your computer." << std::endl;
-//    for (size_t i=0; i<100000; ++i) {
-//        DNA_Strand* bigStrand(new DNA_Strand(big));  // make a big strand object
-//        if (i%1000==0) {
-//            bigStrand->set('b',0);
-//            std::cout << '.';
-//        }
-//        delete bigStrand;     // now delete it
-//    }
-//    std::cout << std::endl;
+    std::string big(10000, 'a');
+    std::cout << "Testing the destructor. Watch the memory usage of your computer." << std::endl;
+    for (size_t i=0; i<100000; ++i) {
+        DNA_Strand* bigStrand(new DNA_Strand(big));  // make a big strand object
+        if (i%1000==0) {
+            bigStrand->set('b',0);
+            std::cout << '.' << std::flush;
+            //Added the flush just so I could see it in real time
+        }
+        delete bigStrand;     // now delete it
+    }
+    std::cout << std::endl;
 
 
     std::cout << "Done testing" << std::endl;
-
-// uncomment the following lines if you are running the program in a
-// DOS or terminal window and you want the window to stay open when
-// the testing is done.
-//    std::cout << "Press enter to end pgm" << std::endl;
-//    char tt;
-//    tt = std::cin.get();
 
 	return 0;
 }

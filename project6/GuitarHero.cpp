@@ -1,12 +1,17 @@
 // File name: GuitarHero.cpp
-// Author: 
-// userid: 
-// Email: 
+// Author: Clinton Lang
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number:
-// Description:  
-// Honor statement:
-// Last Changed: 
+// Assignment Number: 6
+//
+// Description: program reads in a .txt file and uses it to make a .dat file that sounds like
+//              a guitar
+//
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+//
+// Last Changed: March 27th, 2023
 
 #include <stdexcept>
 #include <iostream>
@@ -38,6 +43,12 @@ void createStrings(GuitarString* strings[], int size);
 // destroy the guitar string objects
 // post: array of GuitarString objects have been deallocated
 void destroyStrings(GuitarString* strings[], int size);
+
+// make sure the previous time stamp is less than or equal to the current one
+void assertOrder(double lhn, double prevLhn);
+
+// makes sure the note is in range
+void assertRange(int rhn);
 
 
 // If you want to create your own helper functons (highly recommended), declare them
@@ -73,7 +84,48 @@ int main() {
     // and create & write the correct data to the output stream "outfile".
     // That work should be done here before the files are closed.
     // Define and use helper functions as needed for good style.
+    double lhn;
+    int rhn;
+    double prevLhn = 0.0;
+    while (infile.good()) {
+        infile >> lhn;
+        assertOrder(lhn, prevLhn);
+        auto nextNote = (size_t)(lhn * SAMPLE_RATE);
 
+        infile >> rhn;
+        assertRange(rhn);
+
+        while (strings[0]->getTime() != nextNote) {
+            double sum = 0.0;
+            for (auto string : strings) {
+                sum += string->sample();
+                string->tic();
+            }
+
+            outfile << "  " << (double)strings[0]->getTime() * STEP << '\t' << sum << std::endl;
+
+            if (strings[0]->getTime() % SAMPLE_RATE == 0)
+                std::cout << "." << std::flush;
+        }
+
+        if (rhn == END_OF_SONG)
+            break;
+        strings[rhn]->pluck();
+        prevLhn = lhn;
+    }
+
+    std::cout << "\n\n     ; \n"
+                 "     ;;\n"
+                 "     ;';.\n"
+                 "     ;  ;;\n"
+                 "     ;   ;;\n"
+                 "     ;    ;;\n"
+                 "     ;    ;;\n"
+                 "     ;   ;'\n"
+                 "     ;  ' \n"
+                 ",;;;,; \n"
+                 ";;;;;;\n"
+                 "`;;;;'\n" << std::endl;
 
 
     // close the files
@@ -132,8 +184,8 @@ void createStrings(GuitarString* strings[], int size) {
     for (int i = 0; i < size; i++) {
         double factor = pow(2, (i - 24) / 12.0);
         strings[i] = new GuitarString(CONCERT_A * factor);
-        //std::cout << "String " << i << " has frequency=" 
-        //          << strings[i]->getFrequency() << std::endl;
+        std::cout << "String " << i << " has frequency="
+                  << strings[i]->getFrequency() << std::endl;
     }
 }
 
@@ -147,4 +199,18 @@ void destroyStrings(GuitarString* strings[], int size) {
             strings[i] = nullptr;
         }
     }
+}
+
+// make sure the previous time stamp is less than or equal to the current one
+void assertOrder(double lhn, double prevLhn)
+{
+    if (prevLhn > lhn)
+        throw std::out_of_range("Improper time order from input file");
+}
+
+// makes sure the note is in range
+void assertRange(int rhn)
+{
+    if (rhn > 36 || rhn < -1)
+        throw std::out_of_range("Improper time order from input file");
 }

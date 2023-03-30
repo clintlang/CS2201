@@ -1,11 +1,12 @@
 // File name: DNA_Strand.cpp
-// Author: 
-// VUnetid: 
-// Email: 
+// Author: Clinton Lang
+// VUnetid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: 
-// Honor statement:
-// Assignment Number: ##
+// Date: February 23rd, 2023
+// Honor statement: I attest that I understand the honor code for this class and have neither given
+//                  nor received any unauthorized aid on this assignment.
+// Assignment Number: 3
 // Description: This will be an DNA_Strand implemented with a linked list.
 
 
@@ -15,28 +16,43 @@
 
 // Constructor
 // Create an empty DNA_Strand.
-DNA_Strand::DNA_Strand()
-{
-    // add your code here or on initialization list
-}
+DNA_Strand::DNA_Strand() : mySize(0), myDNA(nullptr) {}
 
 
 // Constructor
 // Create an initialized DNA_Strand.
 // A linked list the size of ipStr will be created and initialized
 // with the characters in ipStr
-DNA_Strand::DNA_Strand(const std::string &ipStr)
+DNA_Strand::DNA_Strand(const std::string &ipStr) : mySize(0),
+                                                   myDNA(nullptr)
 {
-    std::string junk(ipStr); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    // add your code here or on initialization list
+    for (size_t x = ipStr.length() - 1; mySize <= x; ++mySize) {
+        auto tmp(new DnaNode);
+        tmp->val = ipStr[x - mySize];
+        tmp->next = myDNA;
+        myDNA = tmp;
+    }
 }
 
 
 // The copy constructor. 
-DNA_Strand::DNA_Strand(const DNA_Strand &rhs)
+DNA_Strand::DNA_Strand(const DNA_Strand &rhs) : mySize(rhs.mySize),
+                                                myDNA(nullptr)
 {
-    std::string junk(rhs.toString()); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    // add your code here or on initialization list
+    if (rhs.myDNA) {
+        myDNA = new DnaNode;
+        myDNA->val = rhs.myDNA->val;
+        myDNA->next = nullptr;
+        auto newPtr = myDNA;
+        auto origPtr = rhs.myDNA;
+        while (origPtr->next) {
+            origPtr = origPtr->next;
+            newPtr->next = new DnaNode;
+            newPtr = newPtr->next;
+            newPtr->val = origPtr->val;
+            newPtr->next = nullptr;
+        }
+    }
 }
 
 
@@ -44,7 +60,13 @@ DNA_Strand::DNA_Strand(const DNA_Strand &rhs)
 // Clean up the DNA_Strand (e.g., delete dynamically allocated memory).
 DNA_Strand::~DNA_Strand()
 {
-    // add your code here
+    while (myDNA) {
+        auto tmp = myDNA;
+        myDNA = myDNA->next;
+        delete tmp;
+    }
+
+    mySize = 0;
 }
 
 
@@ -52,8 +74,12 @@ DNA_Strand::~DNA_Strand()
 // the contents of parameter <rhs>
 const DNA_Strand & DNA_Strand::operator=(const DNA_Strand &rhs)
 {
-    std::string junk(rhs.toString()); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    // add your code here
+    if (this != &rhs) {
+        DNA_Strand tmp(rhs);
+        std::swap(myDNA, tmp.myDNA);
+        std::swap(mySize, tmp.mySize);
+    }
+
     return *this;
 }
 
@@ -62,7 +88,12 @@ const DNA_Strand & DNA_Strand::operator=(const DNA_Strand &rhs)
 //Returns string equivalent of the DNA
 std::string DNA_Strand::toString() const
 {
-    return "junk";  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    std::string tmpStr;
+    for (DnaNodePtr cur = myDNA; cur != nullptr; cur = cur->next) {
+        tmpStr += cur->val;
+    }
+
+    return tmpStr;
 }
 
 
@@ -72,7 +103,16 @@ std::string DNA_Strand::toString() const
 // Uses zero-based indexing.
 void DNA_Strand::set(char new_item, size_t index)
 {
-    std::string junk(std::to_string(index+new_item)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    if (inRange(index)) {
+        DnaNodePtr cur = myDNA;
+        for (size_t x = 0; x < index; ++x) {
+            cur = cur->next;
+        }
+
+        cur->val = new_item;
+    } else {
+        throw std::out_of_range("Index out of range");
+    }
 }
 
 // Get an item in the DNA_Strand at location index. Throws
@@ -81,16 +121,21 @@ void DNA_Strand::set(char new_item, size_t index)
 // Uses zero-based indexing.
 char DNA_Strand::get(size_t index) const
 {
-    std::string junk(std::to_string(index)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return '?';
+    if (inRange(index)) {
+        DnaNodePtr cur = myDNA;
+        for (size_t x = 0; x < index; ++x) {
+            cur = cur->next;
+        }
+
+        return cur->val;
+    } else {
+        throw std::out_of_range("Index out of range");
+    }
 }
 
 
 // Returns the size of the DNA
-size_t DNA_Strand::size() const
-{
-    return 999999;  // DELETE THIS AND REPLACE WITH YOUR CODE.
-}
+size_t DNA_Strand::size() const {return mySize;}
 
 
 // isEqual
@@ -99,19 +144,24 @@ size_t DNA_Strand::size() const
 // linked list are equal, else false.
 bool DNA_Strand::isEqual(const DNA_Strand &rhs) const
 {
-    std::string junk(rhs.toString()); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return false;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    if (size() == rhs.size()) {
+        for (auto cur1 = myDNA, cur2 = rhs.myDNA; cur1; cur1 = cur1->next, cur2 = cur2->next) {
+            if (cur1->val != cur2->val) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 
 // search
 // Look for target in current DNA strand and return index.
 // Return -1 if not found.
-int DNA_Strand::search(const std::string &target) const
-{
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return -1;  // DELETE THIS AND REPLACE WITH YOUR CODE.
-}
+int DNA_Strand::search(const std::string &target) const {return search((size_t)0, target);}
 
 // search
 // search with start position specified
@@ -119,8 +169,26 @@ int DNA_Strand::search(const std::string &target) const
 // Return -1 if not found.
 int DNA_Strand::search(size_t pos, const std::string &target) const
 {
-    std::string junk(target+std::to_string(pos)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return -1;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    auto cur = myDNA;
+    if (pos < mySize) {
+        for (size_t x = 0; x < pos; cur = cur->next, ++x);
+    } else {
+        return -1;
+    }
+
+    auto tmp = search(cur, target);
+    if (tmp) {
+        size_t last = mySize - target.length();
+        for (; pos <= last; ++pos) {
+            if (cur == tmp) {
+                return (int) pos;
+            }
+
+            cur = cur->next;
+        }
+    }
+
+    return -1;
 }
 
 
@@ -129,9 +197,25 @@ int DNA_Strand::search(size_t pos, const std::string &target) const
 // Return nullptr if not found.
 DnaNodePtr DNA_Strand::search(DnaNodePtr startPtr, const std::string &target) const
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    DnaNodePtr junk2(startPtr); junk2=junk2->next; // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return nullptr;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    auto cur = myDNA;
+    int x = 0;
+    for (; cur != startPtr && (size_t)x < mySize; cur = cur->next, ++x);
+
+    if (cur) {
+        int tLen = (int)target.length(), last = int(mySize - tLen);
+        for (; x <= last; cur = cur->next, ++x) {
+            auto tmp = cur;
+            for (int y = 0; y < tLen; tmp = tmp->next, ++y) {
+                if (tmp->val != target[y]) {
+                    break;
+                } else if (y == tLen - 1) {
+                    return cur;
+                }
+            }
+        }
+    }
+
+    return nullptr;
 }
 
 
@@ -141,17 +225,18 @@ DnaNodePtr DNA_Strand::search(DnaNodePtr startPtr, const std::string &target) co
 // of the second occurence of the target sequence. 
 // pre: Array e.g. ACTTGACCTTGA and target e.g. "TTG"
 // post: ACTTGA  (ACCTTG removed)
-void DNA_Strand::cleave(const std::string &target)
-{
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-}
+void DNA_Strand::cleave(const std::string &target) {cleave((size_t)0, target);}
 
 
 // cleave with start position specified.
 // Start position is specified as an index.
 void DNA_Strand::cleave(size_t pos, const std::string &target)
 {
-    std::string junk(target+std::to_string(pos)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    if (pos < mySize) {
+        auto cur = myDNA;
+        for (size_t x = 0; x < pos; cur = cur->next, ++x);
+        cleave(cur, target);
+    }
 }
 
 
@@ -163,8 +248,26 @@ void DNA_Strand::cleave(size_t pos, const std::string &target)
 //   nullptr if the cleaved sequence was at the end of the strand).
 DnaNodePtr DNA_Strand::cleave(DnaNodePtr startPtr, const std::string &target)
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    DnaNodePtr junk2(startPtr); junk2=junk2->next; // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    auto startCleavePtr = search(startPtr, target);
+    if (startCleavePtr) {
+        size_t x = 0;
+        for (; x < target.length() - 1; startCleavePtr = startCleavePtr->next, ++x);
+        auto endCleavePtr = search(startCleavePtr->next, target);
+        if (endCleavePtr) {
+            for (x = 0; x < target.length(); endCleavePtr = endCleavePtr->next, ++x);
+            auto cur = startCleavePtr->next;
+            for (x = 0; cur != endCleavePtr; ++x) {
+                auto tmp = cur;
+                cur = cur->next;
+                delete tmp;
+            }
+
+            startCleavePtr->next = endCleavePtr;
+            mySize -= x;
+            return endCleavePtr;
+        }
+    }
+
     return nullptr;
 }
 
@@ -179,7 +282,10 @@ DnaNodePtr DNA_Strand::cleave(DnaNodePtr startPtr, const std::string &target)
 // post: ACTTGGGTTGCC (ATTG and CTTG removed)
 void DNA_Strand::cleaveAll(const std::string &target)
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    auto cur = myDNA;
+    do {
+        cur = cleave(cur, target);
+    } while (cur);
 }
 
 
@@ -188,8 +294,15 @@ void DNA_Strand::cleaveAll(const std::string &target)
 // in the DNA strand.
 size_t DNA_Strand::countEnzyme(char target) const
 {
-    std::string junk(std::to_string(target)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return 999999;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    size_t count = 0;
+    auto cur = myDNA;
+    for (size_t x = 0; x < mySize; cur = cur->next, ++x) {
+        if (cur->val == target) {
+            ++count;
+        }
+    }
+
+    return count;
 }
 
 // countEnzyme -- overloaded
@@ -199,19 +312,25 @@ size_t DNA_Strand::countEnzyme(char target) const
 // Precondition: the target is a nonempty string.
 size_t DNA_Strand::countEnzyme(const std::string &target) const
 {
-    std::string junk(target); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return 999999;  // DELETE THIS AND REPLACE WITH YOUR CODE.
+    int searchFind;
+    size_t count = 0;
+    size_t x = 0;
+    do {
+        searchFind = search(x, target);
+        if (searchFind != -1) {
+            ++count;
+            x = (size_t)searchFind + target.length();
+        }
+    } while (searchFind != -1);
+
+    return count;
 }
 
 
 // inRange : helper function
 // Returns true if index is within range, i.e., 0 <= index < mySize 
 // else returns false.
-bool DNA_Strand::inRange(size_t index) const
-{
-    std::string junk(std::to_string(index)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return false;  // DELETE THIS AND REPLACE WITH YOUR CODE.
-}
+bool DNA_Strand::inRange(size_t index) const {return index < mySize;}
 
 
 // append (accepting a string parameter)
@@ -220,7 +339,17 @@ bool DNA_Strand::inRange(size_t index) const
 // then afterward myDNA will contain ACTTGAACCTG
 void DNA_Strand::append(const std::string &rhs)
 {
-    std::string junk(rhs); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    auto cur = myDNA;
+    for (size_t x = 0; x < mySize - 1; cur = cur->next, ++x);
+
+    for (auto rh : rhs) {
+        cur->next = new DnaNode;
+        cur = cur->next;
+        cur->val = rh;
+    }
+
+    cur->next = nullptr;
+    mySize += rhs.length();
 }
 
 // append (accepting a DNA_Strand parameter)
@@ -229,7 +358,7 @@ void DNA_Strand::append(const std::string &rhs)
 // then afterward myDNA will contain ACTTGAACCTG
 void DNA_Strand::append(const DNA_Strand &rhs)
 {
-    std::string junk(rhs.toString()); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    append(rhs.toString());
 }
 
 
@@ -239,10 +368,9 @@ void DNA_Strand::append(const DNA_Strand &rhs)
 // second with the insertSequence. 
 // If two instances of the target are not found, 
 // then no changes are made.
-void DNA_Strand::splice(const std::string &target,
-                        const std::string &insertSequence)
+void DNA_Strand::splice(const std::string &target, const std::string &insertSequence)
 {
-    std::string junk(target+insertSequence); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    splice((size_t)0, target, insertSequence);
 }
 
 
@@ -250,7 +378,11 @@ void DNA_Strand::splice(const std::string &target,
 void DNA_Strand::splice(size_t pos, const std::string &target,
                         const std::string &insertSequence)
 {
-    std::string junk(target+insertSequence+std::to_string(pos)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
+    if (pos < mySize) {
+        auto cur = myDNA;
+        for (size_t x = 0; x < pos; cur = cur->next, ++x);
+        splice(cur, target, insertSequence);
+    }
 }
 
 
@@ -260,9 +392,35 @@ void DNA_Strand::splice(size_t pos, const std::string &target,
 DnaNodePtr DNA_Strand::splice(DnaNodePtr startPtr, const std::string &target,
                               const std::string &insertSequence)
 {
-    std::string junk(target+insertSequence+std::to_string(mySize)); // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    DnaNodePtr junk2(startPtr); junk2=myDNA; junk2=junk2->next; // DELETE THIS AND REPLACE WITH YOUR CODE. THIS IS ONLY HERE TEMPORARILY TO MAKE THE COMPILER HAPPY
-    return nullptr;   // DELETE THIS AND REPLACE WITH YOUR CODE.
+    auto startSplicePtr = search(startPtr, target);
+    if (startSplicePtr) {
+        size_t x = 0;
+        for (; x < target.length() - 1; startSplicePtr = startSplicePtr->next, ++x);
+        auto endSplicePtr = search(startSplicePtr->next, target);
+        if (endSplicePtr) {
+            for (x = 0; x < target.length(); endSplicePtr = endSplicePtr->next, ++x);
+            auto cur = startSplicePtr->next;
+            for (x = 0; cur != endSplicePtr; ++x) {
+                auto tmp = cur;
+                cur = cur->next;
+                delete tmp;
+            }
+
+            for (auto c : insertSequence) {
+                startSplicePtr->next = new DnaNode;
+                startSplicePtr = startSplicePtr->next;
+                startSplicePtr->val = c;
+            }
+
+            startSplicePtr->next = endSplicePtr;
+            //avoid casting negative value to size_t
+            mySize += insertSequence.length();
+            mySize -= x;
+            return endSplicePtr;
+        }
+    }
+
+    return nullptr;
 }
 
 
