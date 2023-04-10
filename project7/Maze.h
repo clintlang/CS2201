@@ -1,9 +1,9 @@
 // File name: Maze.h
 // Author: CS2201 Instructor
-// userid: 
-// Email: 
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number: 
+// Assignment Number: 7
 // Description:  Class that represents a maze. 
 //    A maze has walls, open locations, a start location, and an end location.
 //    The initial maze is read from a file. See problem spec for file format.

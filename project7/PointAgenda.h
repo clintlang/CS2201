@@ -1,9 +1,9 @@
 // File name: PointAgenda.h
-// Author: 
-// userid: 
-// Email: 
-// Class: 
-// Assignment Number:
+// Author: Clinton Lang
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
+// Class: CS 2201
+// Assignment Number: 7
 // Description:  Maintains an agenda of Points to be visited.  Contains functions
 //     prototypes to add, remove, peek (retrieve next), and retrieve size of the 
 //     agenda. THIS IS A VIRTUAL CLASS.

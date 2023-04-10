@@ -1,9 +1,9 @@
 // File name: Point.cpp
 // Author: CS2201 Instructor
-// userid: 
-// Email: 
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number:
+// Assignment Number: 7
 // Description:  Represent a point via x & y coordinates.
 // Last Changed: 8-4-2009
 

@@ -1,9 +1,9 @@
 // File name: Main.cpp
 // Author: CS2201 Instructor
-// userid: 
-// Email: 
+// userid: langct
+// Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201 @ Vanderbilt U.
-// Assignment Number: 
+// Assignment Number: 7
 // Description:  Determine if a maze has a solution (and print a trace).
 //    A basic exercise for stacks and queues (or any agenda-type container).
 // Last Changed:  3-24-2010
@@ -85,7 +85,7 @@ PointAgenda* chooseAgenda()
             std::cout << "\nSolving the maze with a stack-based agenda:" << std::endl;
             return new LifoPointAgenda;
         case 2:
-            std::cout << "\nSolving the maze with a queue-based agenda:" << std::endl;
+            std::cout << "\nSolving the maze with a stack-based agenda:" << std::endl;
             return new FifoPointAgenda;
         default:
             std::cout << "Non-int input. Halting program." << std::endl;
