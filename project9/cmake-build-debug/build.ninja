@@ -46,15 +46,21 @@ cmake_ninja_workdir = /Users/clint/Desktop/CS2201/project9/cmake-build-debug/
 
 build cmake_object_order_depends_target_project9: phony || CMakeFiles/project9.dir
 
-build CMakeFiles/project9.dir/main.cpp.o: CXX_COMPILER__project9_Debug /Users/clint/Desktop/CS2201/project9/main.cpp || cmake_object_order_depends_target_project9
-  DEP_FILE = CMakeFiles/project9.dir/main.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu++20
+build CMakeFiles/project9.dir/project9.cpp.o: CXX_COMPILER__project9_Debug /Users/clint/Desktop/CS2201/project9/project9.cpp || cmake_object_order_depends_target_project9
+  DEP_FILE = CMakeFiles/project9.dir/project9.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
   OBJECT_DIR = CMakeFiles/project9.dir
   OBJECT_FILE_DIR = CMakeFiles/project9.dir
 
 build CMakeFiles/project9.dir/Trie.cpp.o: CXX_COMPILER__project9_Debug /Users/clint/Desktop/CS2201/project9/Trie.cpp || cmake_object_order_depends_target_project9
   DEP_FILE = CMakeFiles/project9.dir/Trie.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu++20
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  OBJECT_DIR = CMakeFiles/project9.dir
+  OBJECT_FILE_DIR = CMakeFiles/project9.dir
+
+build CMakeFiles/project9.dir/TrieNode.cpp.o: CXX_COMPILER__project9_Debug /Users/clint/Desktop/CS2201/project9/TrieNode.cpp || cmake_object_order_depends_target_project9
+  DEP_FILE = CMakeFiles/project9.dir/TrieNode.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
   OBJECT_DIR = CMakeFiles/project9.dir
   OBJECT_FILE_DIR = CMakeFiles/project9.dir
 
@@ -64,14 +70,14 @@ build CMakeFiles/project9.dir/Trie.cpp.o: CXX_COMPILER__project9_Debug /Users/cl
 
 
 #############################################
-# Link the executable project9
+# Link the executable /Users/clint/Desktop/CS2201/project9/project9
 
-build project9: CXX_EXECUTABLE_LINKER__project9_Debug CMakeFiles/project9.dir/main.cpp.o CMakeFiles/project9.dir/Trie.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+build /Users/clint/Desktop/CS2201/project9/project9: CXX_EXECUTABLE_LINKER__project9_Debug CMakeFiles/project9.dir/project9.cpp.o CMakeFiles/project9.dir/Trie.cpp.o CMakeFiles/project9.dir/TrieNode.cpp.o
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
   OBJECT_DIR = CMakeFiles/project9.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = project9
+  TARGET_FILE = /Users/clint/Desktop/CS2201/project9/project9
   TARGET_PDB = project9.dbg
 
 
@@ -100,6 +106,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build project9: phony /Users/clint/Desktop/CS2201/project9/project9
+
 # =============================================================================
 # Folder targets.
 
@@ -108,7 +116,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/clint/Desktop/CS2201/project9/cmake-build-debug
 
-build all: phony project9
+build all: phony /Users/clint/Desktop/CS2201/project9/project9
 
 # =============================================================================
 # Built-in targets

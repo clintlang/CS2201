@@ -1,0 +1,20 @@
+# ninja log v5
+1	63	1682215884310776130	build.ninja	5c43507ea20dfafc
+5	420	1681782336636532120	CMakeFiles/project9.dir/project9.cpp.o	6aed5c1ed8ef9bb
+420	463	1681782336680770766	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
+2	283	1681776123284438891	CMakeFiles/project9.dir/main.cpp.o	d1aff2a8ba59e3cb
+2	442	1681781734182788377	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+2	402	1681781734143328509	CMakeFiles/project9.dir/TrieNode.cpp.o	3ab99dc142165752
+3	427	1682228000278065869	CMakeFiles/project9.dir/TrieNode.cpp.o	3ab99dc142165752
+2	458	1682228000311031689	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+458	501	1682228000355027449	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
+2	285	1682228119919680183	CMakeFiles/project9.dir/TrieNode.cpp.o	3ab99dc142165752
+1	329	1682228119964012901	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+329	362	1682228119998447677	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
+1	298	1682228294546229672	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+299	328	1682228294577248621	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
+3	417	1682233427494837201	CMakeFiles/project9.dir/TrieNode.cpp.o	3ab99dc142165752
+2	451	1682233427529375993	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+451	492	1682233427572251981	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
+1	316	1682233872826924225	CMakeFiles/project9.dir/Trie.cpp.o	2c2fd29410b054a1
+316	349	1682233872861459767	/Users/clint/Desktop/CS2201/project9/project9	6969c625e75c48f9
