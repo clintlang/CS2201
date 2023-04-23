@@ -1,0 +1,163 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: project10
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/clint/Desktop/CS2201/project10/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target project10
+
+
+#############################################
+# Order-only phony target for project10
+
+build cmake_object_order_depends_target_project10: phony || CMakeFiles/project10.dir
+
+build CMakeFiles/project10.dir/Boggle.cpp.o: CXX_COMPILER__project10_Debug /Users/clint/Desktop/CS2201/project10/Boggle.cpp || cmake_object_order_depends_target_project10
+  DEP_FILE = CMakeFiles/project10.dir/Boggle.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/clint/Desktop/CS2201/project10/.
+  OBJECT_DIR = CMakeFiles/project10.dir
+  OBJECT_FILE_DIR = CMakeFiles/project10.dir
+
+build CMakeFiles/project10.dir/BoggleDriver.cpp.o: CXX_COMPILER__project10_Debug /Users/clint/Desktop/CS2201/project10/BoggleDriver.cpp || cmake_object_order_depends_target_project10
+  DEP_FILE = CMakeFiles/project10.dir/BoggleDriver.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/clint/Desktop/CS2201/project10/.
+  OBJECT_DIR = CMakeFiles/project10.dir
+  OBJECT_FILE_DIR = CMakeFiles/project10.dir
+
+build CMakeFiles/project10.dir/Trie.cpp.o: CXX_COMPILER__project10_Debug /Users/clint/Desktop/CS2201/project10/Trie.cpp || cmake_object_order_depends_target_project10
+  DEP_FILE = CMakeFiles/project10.dir/Trie.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/clint/Desktop/CS2201/project10/.
+  OBJECT_DIR = CMakeFiles/project10.dir
+  OBJECT_FILE_DIR = CMakeFiles/project10.dir
+
+build CMakeFiles/project10.dir/TrieNode.cpp.o: CXX_COMPILER__project10_Debug /Users/clint/Desktop/CS2201/project10/TrieNode.cpp || cmake_object_order_depends_target_project10
+  DEP_FILE = CMakeFiles/project10.dir/TrieNode.cpp.o.d
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/clint/Desktop/CS2201/project10/.
+  OBJECT_DIR = CMakeFiles/project10.dir
+  OBJECT_FILE_DIR = CMakeFiles/project10.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target project10
+
+
+#############################################
+# Link the executable /Users/clint/Desktop/CS2201/project10/project10
+
+build /Users/clint/Desktop/CS2201/project10/project10: CXX_EXECUTABLE_LINKER__project10_Debug CMakeFiles/project10.dir/Boggle.cpp.o CMakeFiles/project10.dir/BoggleDriver.cpp.o CMakeFiles/project10.dir/Trie.cpp.o CMakeFiles/project10.dir/TrieNode.cpp.o
+  FLAGS = -Wall -Werror -Wextra -pedantic -pedantic-errors -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/project10.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = /Users/clint/Desktop/CS2201/project10/project10
+  TARGET_PDB = project10.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/clint/Desktop/CS2201/project10/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/clint/Desktop/CS2201/project10/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/clint/Desktop/CS2201/project10 -B/Users/clint/Desktop/CS2201/project10/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+build project10: phony /Users/clint/Desktop/CS2201/project10/project10
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/clint/Desktop/CS2201/project10/cmake-build-debug
+
+build all: phony /Users/clint/Desktop/CS2201/project10/project10
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/clint/Desktop/CS2201/project10/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/clint/Desktop/CS2201/project10/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
