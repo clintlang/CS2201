@@ -15,4 +15,4 @@ add_executable(project10
         Trie.cpp
         Trie.h
         TrieNode.cpp
-        TrieNode.h)
+        TrieNode.h Boggle.h)

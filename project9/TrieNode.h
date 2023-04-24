@@ -17,11 +17,11 @@
 
 class TrieNode
 {
-    TrieNode* nodes[26];
+    static const size_t NUM_LETTERS = 26;
+
+    TrieNode* nodes[NUM_LETTERS];
 
     bool isEnd;
-
-    size_t count;
 
     public:
         // Class Constructor. Takes a character for the node, and a bool
@@ -40,7 +40,7 @@ class TrieNode
 
         // Insert str starting with the given TrieNode. Create new TrieNodes
         // as needed and be sure to set the boolean flag on the last node to true
-        void insert(const std::string& str);
+        bool insert(const std::string& str);
 
         // Returns true if str is in the sub-Trie starting at the given TrieNode,
         // else returns false
@@ -54,9 +54,6 @@ class TrieNode
         // string str stores the letters of all previous TrieNode objects up to
         // the node currently being processed
         void print(const std::string& str) const;
-
-        // Returns a count all the nodes in the sub-Trie that end a word
-        size_t wordCount() const;
 };
 
 #endif

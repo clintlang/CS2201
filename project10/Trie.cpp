@@ -3,10 +3,10 @@
 // VUnetid: langct
 // Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: April 24th, 2023
+// Date: April 17th, 2023
 // Honor statement: I attest that I understand the honor code for this class and have neither given
 //                  nor received any unauthorized aid on this assignment.
-// Assignment Number: 10
+// Assignment Number: 9
 // Description: This defines the structure of our trie.
 
 #include "Trie.h"
@@ -16,15 +16,14 @@
 
 
 // Default Constructor
-Trie::Trie() : myRoot("") {}
+Trie::Trie() : myRoot(""), count(0) {}
 
 
 // Insert the parameter word into the Trie
 void Trie::insert(const std::string& word)
 {
-    if (!isWord(word) && !word.empty()) {
-        myRoot.insert(word);
-    }
+    if (!word.empty() && myRoot.insert(word))
+        ++count;
 }
 
 
@@ -72,4 +71,4 @@ void Trie::print() const
 
 
 // Returns a count all the words in the Trie
-size_t Trie::wordCount() const {return myRoot.wordCount() - 1;}
+size_t Trie::wordCount() const {return count;}

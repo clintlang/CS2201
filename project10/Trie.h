@@ -3,10 +3,10 @@
 // VUnetid: langct
 // Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: April 24th, 2023
+// Date: April 17th, 2023
 // Honor statement: I attest that I understand the honor code for this class and have neither given
 //                  nor received any unauthorized aid on this assignment.
-// Assignment Number: 10
+// Assignment Number: 9
 // Description: This declares the structure of our trie.
 
 #ifndef TRIE_H
@@ -19,6 +19,8 @@
 class Trie
 {
     TrieNode myRoot;
+
+    size_t count;
 
 public:
     // Default Constructor

@@ -20,6 +20,8 @@ class Trie
 {
     TrieNode myRoot;
 
+    size_t count;
+
     public:
         // Default Constructor
         Trie();

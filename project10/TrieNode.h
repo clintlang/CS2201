@@ -3,10 +3,10 @@
 // VUnetid: langct
 // Email: clinton.t.lang@vanderbilt.edu
 // Class: CS2201
-// Date: April 24th, 2023
+// Date: April 17th, 2023
 // Honor statement: I attest that I understand the honor code for this class and have neither given
 //                  nor received any unauthorized aid on this assignment.
-// Assignment Number: 10
+// Assignment Number: 9
 // Description: This declares the structure of a node of our trie.
 
 #ifndef TRIENODE_H
@@ -15,15 +15,13 @@
 #include <string>
 
 
-const size_t NUM_LETTERS = 26;
-
 class TrieNode
 {
+    static const size_t NUM_LETTERS = 26;
+
     TrieNode* nodes[NUM_LETTERS];
 
     bool isEnd;
-
-    size_t count;
 
 public:
     // Class Constructor. Takes a character for the node, and a bool
@@ -42,7 +40,7 @@ public:
 
     // Insert str starting with the given TrieNode. Create new TrieNodes
     // as needed and be sure to set the boolean flag on the last node to true
-    void insert(const std::string& str);
+    bool insert(const std::string& str);
 
     // Returns true if str is in the sub-Trie starting at the given TrieNode,
     // else returns false
@@ -56,9 +54,6 @@ public:
     // string str stores the letters of all previous TrieNode objects up to
     // the node currently being processed
     void print(const std::string& str) const;
-
-    // Returns a count all the nodes in the sub-Trie that end a word
-    size_t wordCount() const;
 };
 
 #endif

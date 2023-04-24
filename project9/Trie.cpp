@@ -16,14 +16,14 @@
 
 
 // Default Constructor
-Trie::Trie() : myRoot("") {}
+Trie::Trie() : myRoot(""), count(0) {}
 
 
 // Insert the parameter word into the Trie
 void Trie::insert(const std::string& word)
 {
-    if (!isWord(word) && !word.empty())
-        myRoot.insert(word);
+    if (!word.empty() && myRoot.insert(word))
+        ++count;
 }
 
 
@@ -71,4 +71,4 @@ void Trie::print() const
 
 
 // Returns a count all the words in the Trie
-size_t Trie::wordCount() const {return myRoot.wordCount() - 1;}
+size_t Trie::wordCount() const {return count;}
